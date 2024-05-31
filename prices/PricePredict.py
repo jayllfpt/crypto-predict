@@ -9,7 +9,7 @@ import json
 import numpy as np
 import matplotlib.pyplot as plt
 from keras.models import load_model  # type: ignore
-from technical_analysis.generate_labels import Genlabels
+from technical_analysis.generate_labels import Genlabels # type: ignore
 from tensorflow.keras.models import Sequential  # type: ignore
 from tensorflow.keras.layers import Dense, Dropout, LSTM  # type: ignore
 from sklearn.preprocessing import MinMaxScaler
@@ -25,7 +25,8 @@ class PricePredict:
         self.scaler = MinMaxScaler()
         os.makedirs("models", exist_ok=True)
 
-    def __call__(self, data, trends, result_img_path="price-prediction.png"):
+    def __call__(self, data, trends, 
+                 result_img_path="price-prediction.png"):
         self.model = load_model(self.model_path)
         self.scaler = joblib.load(self.scaler_path)
         test_data = self.process_test_data(data, trends)
@@ -37,7 +38,7 @@ class PricePredict:
         return predictions
 
     def visualize(self, data, predictions, result_img_path):
-        print(len(data), len(predictions))
+        # print(len(data), len(predictions))
         plt.plot(data[self.timesteps:], color="black", label="actual")
         plt.plot(predictions, color="green", label="predict")
         plt.xlabel("Time")
@@ -50,7 +51,7 @@ class PricePredict:
         scaled_data = self.scaler.fit_transform(scaled_data)
         trends = trends.reshape(-1, 1)
         combined_data = np.hstack((scaled_data, trends))
-        print(len(combined_data))
+        # print(len(combined_data))
         test_data = []
         for x in range(self.timesteps, len(combined_data)):
             test_data.append(combined_data[x-self.timesteps:x])
