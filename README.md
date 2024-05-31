@@ -1,7 +1,7 @@
 # CRYPTO-PREDICT
 
 This is our project for DSP391m at FPT University. In this project, we applied **LSTM** to crypto price data to predict the **trend** and the **price**. The project contains training and testing pipeline for crypto trend and price.
-<br>Main pipeline of the project:
+<br> <br> Main pipeline of the project:
 
 1. Collect data: we use API of [yahoo-finance](https://github.com/ranaroussi/yfinance)
 2. Applied technical analysis to extract 5 features of the close price
@@ -46,14 +46,14 @@ streamlit run app.py
 ```
 
 2. Run with python
-*Have a look at [trend predict module](./trends/TrendPredict.py), [price predict module](./prices/PricePredict.py) and [full pipeline](./pipeline.py)*
+<br>*Have a look at [trend predict module](./trends/TrendPredict.py), [price predict module](./prices/PricePredict.py) and [full pipeline](./pipeline.py)*
 ```bash
 python pipeline.py
 ```
 
 
 3. Run with docker
-*Have a look at [Dockerfile]("./Dockerfile")*
+<br>*Have a look at [Dockerfile]("./Dockerfile")*
 
 ```bash
 # build image
