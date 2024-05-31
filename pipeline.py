@@ -20,4 +20,5 @@ if __name__ == "__main__":
     
     labels = trend_predictor(data)
 
-    price_predictor(data[timesteps:], labels)
+    result = price_predictor(data[timesteps:], labels)
+    print(result)
