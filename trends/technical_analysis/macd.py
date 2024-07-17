@@ -94,7 +94,9 @@ class PPO(object):
 
 
 if __name__ == "__main__":
-    data = np.load('historical_data/hist_data.npy')[:, 4]
+    import pandas
+    data = pandas.read_csv("data/test_data.csv")
+    data = data['Close']
     test1 = PPO(data, 6, 12, 3).values
 
     update_data = data[-20:]
@@ -106,7 +108,25 @@ if __name__ == "__main__":
     for value in update_data:
         updated.append(test2.update_ppo(value))
 
+
+    print(len(data), len(updated))
     import matplotlib.pyplot as plt
-    plt.plot(test1[-100:])
-    plt.plot(updated[-100:])
-    plt.show()
+    # Plot the original price data
+    plt.subplot(2, 1, 1)
+    plt.plot(data[-100:], label='Original Price')
+    plt.title('Original Price and PPO')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.grid(True)
+
+    # Plot the PPO values
+    plt.subplot(2, 1, 2)
+    plt.plot(test1[-100:], label='PPO (Full Data)')
+    plt.plot(updated[-100:], label='PPO (Updated)', linestyle='--')
+    plt.xlabel('Time')
+    plt.ylabel('PPO Value')
+    plt.legend()
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.savefig('macd.png')

@@ -71,7 +71,9 @@ class Coppock(object):
         return temp_wma / weight_sum
 
 if __name__ == "__main__":
-    data = np.load('data/hist_data.npy')[:, 4]
+    import pandas
+    data = pandas.read_csv("data/test_data.csv")
+    data = data['Close']
     test1 = Coppock(data, wma_pd=10, roc_long=6, roc_short=3).values
 
     update_data = data[-20:]
@@ -84,6 +86,22 @@ if __name__ == "__main__":
         updated.append(test2.update_copp(value))
 
     import matplotlib.pyplot as plt
-    plt.plot(test1[-100:])
-    plt.plot(updated[-100:])
-    plt.show()
+    # Plot the original price data
+    plt.subplot(2, 1, 1)
+    plt.plot(data[-100:], label='Original Price')
+    plt.title('Original Price and Coppock Indicator')
+    plt.ylabel('Price')
+    plt.legend()
+    plt.grid(True)
+
+    # Plot the Coppock values
+    plt.subplot(2, 1, 2)
+    plt.plot(test1[-100:], label='Coppock Indicator (Full Data)')
+    plt.plot(updated[-100:], label='Coppock Indicator (Updated)', linestyle='--')
+    plt.xlabel('Time')
+    plt.ylabel('Coppock Value')
+    plt.legend()
+    plt.grid(True)
+
+    plt.tight_layout()
+    plt.savefig('coppock.png')

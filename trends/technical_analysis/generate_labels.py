@@ -3,6 +3,7 @@ import plotly.offline as py
 import plotly.graph_objs as go
 from scipy.signal import savgol_filter
 import sys
+import json
 
 
 class Genlabels(object):
@@ -59,7 +60,10 @@ class Genlabels(object):
             )
         )
         fig = go.Figure(data=data, layout=layout)
-        py.plot(fig, filename='../docs/label.html')
+        py.plot(fig, filename='label.html')
 
 if __name__ == '__main__':
-    labels = Genlabels(window=25, polyorder=3, hist='../historical_data/hist_data.npy', graph=True)
+    import pandas
+    data = pandas.read_csv("data/trend_train_data.csv")
+    data = data['Close']
+    labels = Genlabels(window=25, polyorder=3, data= data, graph=True)

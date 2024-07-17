@@ -26,3 +26,20 @@ class Dpo(object):
         sma = np.average(self.data)
 
         return self.data[-(int(self.period/2))] - sma
+    
+
+if __name__ == "__main__":
+    import pandas
+    data = pandas.read_csv("data/trend_train_data.csv")
+    data = data['Close']
+
+    dpo = Dpo(data, period=4).values
+    # Plotting the DPO values
+    import matplotlib.pyplot as plt
+    plt.plot(dpo, label='DPO')
+    plt.title('Detrended Price Oscillator (DPO)')
+    plt.xlabel('Time')
+    plt.ylabel('DPO Value')
+    plt.legend()
+    plt.grid(True)
+    plt.savefig("dpo.png")

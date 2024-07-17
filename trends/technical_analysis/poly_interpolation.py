@@ -54,4 +54,11 @@ def plot_poly(X, y_plot, data):
     plt.scatter(X, data, color='navy', s=60, marker='o', label="data points")
     
     plt.legend(loc='lower left')
+    plt.savefig('poly_interpolation.png')
     plt.show()
+
+if __name__ == "__main__":
+    import pandas
+    data = pandas.read_csv("data/trend_train_data.csv")
+    data = data['Close']
+    PolyInter(data, plot=True)
